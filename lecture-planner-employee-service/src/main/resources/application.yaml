@@ -1,0 +1,29 @@
+server:
+  port: 8081
+  error:
+    include-message: always
+
+# docker run --name mariadb -d --rm -e MYSQL_ROOT_PASSWORD=mypass -e MYSQL_DATABASE=db_example -p 3306:3306 mariadb
+spring:
+  jpa.hibernate.ddl-auto: update
+  datasource:
+    url: jdbc:mariadb://${MYSQL_HOST:localhost}:3306/db_example
+    username: root
+    password: mypass
+    driver-class-name: org.mariadb.jdbc.Driver
+  jpa.properties:
+    hibernate.dialect: org.hibernate.dialect.MariaDB103Dialect
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+---
+spring:
+  config:
+    activate:
+      on-profile: docker
+
+server.port: 8080

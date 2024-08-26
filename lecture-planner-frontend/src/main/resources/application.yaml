@@ -1,0 +1,24 @@
+server:
+  port: 8080
+  error.path: /error
+  error:
+    whitelabel:
+      enabled: false
+
+endpoint:
+  employee: "http://${EMPLOYEE_HOST:localhost}:${EMPLOYEE_PORT:8081}/employees"
+  lecture: "http://${LECTURE_HOST:localhost}:${LECTURE_PORT:8082}/lectures"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+#---
+#spring:
+#  config:
+#    activate:
+#      on-profile: docker
+#
+#server.port: 8080
